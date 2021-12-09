@@ -1,9 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid main-container">
   <div class="form-group">
-    <div class="card">
+    <div class="card parameter-box">
       <div class="card-body">
         <button type="button"
           class="btn btn-sm btn-outline-primary top-btns"
+          [disabled]="parameters.length == 0"
           (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed"
           aria-controls="collapseBasic">
@@ -19,6 +20,7 @@
         <button class="btn btn-sm btn-primary top-btns"
           (click)="getVariables(); isCollapsed = false">Get Vars</button>
         <button class="btn btn-sm btn-success top-btns"
+          [disabled]="parameters.length == 0"
           (click)="applyValues()">Apply Values</button>
         <div id="collapseBasic"
           [collapse]="isCollapsed"
@@ -27,7 +29,8 @@
             <div class="col-6"
               *ngFor="let param of parameters">
               <div class="d-flex justify-content-between">
-                <label for="basic-url">{{param.name}}</label>
+                <label class="parameter-label"
+                  for="basic-url">{{param.name}}</label>
                 <div (click)="logParameters()"
                   class="btn-group"
                   btnRadioGroup
@@ -45,14 +48,14 @@
                   *ngIf="param.inputType == 'Text'"
                   [(ngModel)]="param.value"
                   placeholder="{{param.name}}"
-                  class="form-control"
+                  class="form-control parameter-input"
                   id="basic-url"
                   aria-describedby="basic-addon3">
                 <textarea type="text"
                   *ngIf="param.inputType == 'TextArea'"
                   [(ngModel)]="param.value"
                   placeholder="{{param.name}}"
-                  class="form-control"
+                  class="form-control parameter-input"
                   id="basic-url"
                   aria-describedby="basic-addon3"></textarea>
                 <div *ngIf="param.inputType == 'Date'"
@@ -60,7 +63,7 @@
                   <input type="text"
                     [(ngModel)]="param.value"
                     placeholder="{{param.name}}"
-                    class="form-control"
+                    class="form-control parameter-input"
                     bsDatepicker>
                 </div>
               </div>

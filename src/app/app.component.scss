@@ -4,4 +4,19 @@
 .input-section {
   margin-top: 10px;
 }
-
+.main-container {
+  padding: 0px;
+  .form-group {
+    margin-bottom: 0px;
+  }
+}
+.parameter-box {
+  border-radius: 0px;
+  background-color: rgb(34, 34, 34);
+}
+.parameter-label {
+  color: white;
+}
+.parameter-input {
+  background-color: rgb(34, 34, 34);
+}
