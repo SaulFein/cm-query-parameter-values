@@ -103,10 +103,15 @@ AND CASE WHEN $userOppTypes IS NULL THEN true ELSE (o.opportunityType in $userOp
   applyValues() {
     this.parameters.forEach((param) => {
       if (param.inputType == InputType.Date) {
+        //date
         let date = (param.value as any).toISOString();
-        this.code = this.code.replace(param.name, date);
-      } else {
+        this.code = this.code.replace(param.name, `"${date}"`);
+      } else if (param.value.indexOf('[') == 0) {
+        //array
         this.code = this.code.replace(param.name, param.value);
+      } else {
+        //string
+        this.code = this.code.replace(param.name, `"${param.value}"`);
       }
     });
   }

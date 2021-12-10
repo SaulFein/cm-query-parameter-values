@@ -32,14 +32,14 @@
                 <label class="parameter-label"
                   for="basic-url">{{param.name}}</label>
                 <div (click)="logParameters()"
-                  class="btn-group"
+                  class="btn-group input-type-switcher"
                   btnRadioGroup
                   [(ngModel)]="param.inputType">
-                  <label class="btn btn-sm btn-outline-info mb-0"
+                  <label class="btn btn-sm btn-outline-primary mb-0"
                     btnRadio="Text">Text</label>
-                  <label class="btn btn-sm btn-outline-info mb-0"
+                  <label class="btn btn-sm btn-outline-primary mb-0"
                     btnRadio="TextArea">TextArea</label>
-                  <label class="btn btn-sm btn-outline-info mb-0"
+                  <label class="btn btn-sm btn-outline-primary mb-0"
                     btnRadio="Date">Date</label>
                 </div>
               </div>
