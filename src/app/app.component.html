@@ -18,10 +18,12 @@
           </div>
         </button>
         <button class="btn btn-sm btn-primary top-btns"
-          (click)="getVariables(); isCollapsed = false">Get Vars</button>
+          (click)="getParameters(); isCollapsed = false">Get Parameters</button>
         <button class="btn btn-sm btn-success top-btns"
           [disabled]="parameters.length == 0"
           (click)="applyValues()">Apply Values</button>
+        <button class="btn btn-sm btn-info top-btns float-right"
+          (click)="useExampleQuery()">Try Example</button>
         <div id="collapseBasic"
           [collapse]="isCollapsed"
           [isAnimated]="true">
@@ -31,8 +33,7 @@
               <div class="d-flex justify-content-between">
                 <label class="parameter-label"
                   for="basic-url">{{param.name}}</label>
-                <div (click)="logParameters()"
-                  class="btn-group input-type-switcher"
+                <div class="btn-group input-type-switcher"
                   btnRadioGroup
                   [(ngModel)]="param.inputType">
                   <label class="btn btn-sm btn-outline-primary mb-0"

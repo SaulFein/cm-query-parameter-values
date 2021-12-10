@@ -81,11 +81,20 @@ AND ANY hists IN o.history SATISFIES hists.actionTime BETWEEN $startactiontime A
 AND hist.actionTime BETWEEN $startactiontime AND $endactiontime
 AND hist.userId IN $userids
 AND CASE WHEN $userOppTypes IS NULL THEN true ELSE (o.opportunityType in $userOppTypes) END`;
+  defaultCodeMessage = `How to use:
+1. Replace this text with your query string
+2. Click the Get Parameters btn to find all the query parameters prefixed with $
+3. Fill in the values for each parameter
+4. Click Apply Values button
+
+Click the Try Example button to copy a sample query into the editor
+`;
+
   editorOptions = { theme: 'vs-dark', language: 'mysql' };
-  code: string = this.testCodeValue;
+  code: string = this.defaultCodeMessage;
   parameters: { name: string; value: string; inputType: InputType }[] = [];
   isCollapsed = true;
-  getVariables() {
+  getParameters() {
     this.parameters = [];
     console.log(this.code);
     const resultArray = this.code.match(/(\$\S+\b)/gi);
@@ -102,20 +111,25 @@ AND CASE WHEN $userOppTypes IS NULL THEN true ELSE (o.opportunityType in $userOp
   }
   applyValues() {
     this.parameters.forEach((param) => {
-      if (param.inputType == InputType.Date) {
-        //date
-        let date = (param.value as any).toISOString();
-        this.code = this.code.replace(param.name, `"${date}"`);
-      } else if (param.value.indexOf('[') == 0) {
-        //array
-        this.code = this.code.replace(param.name, param.value);
-      } else {
-        //string
-        this.code = this.code.replace(param.name, `"${param.value}"`);
+      while (this.code.indexOf(param.name) !== -1) {
+        if (param.inputType == InputType.Date) {
+          //date
+          let date = (param.value as any).toISOString();
+          this.code = this.code.replace(param.name, `"${date}"`);
+        } else if (param.value.indexOf('[') == 0) {
+          //array
+          this.code = this.code.replace(param.name, param.value);
+        } else {
+          //string
+          this.code = this.code.replace(param.name, `"${param.value}"`);
+        }
       }
     });
   }
   logParameters() {
     console.log('parameters: ', this.parameters);
+  }
+  useExampleQuery() {
+    this.code = this.testCodeValue;
   }
 }
